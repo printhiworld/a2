@@ -16,9 +16,21 @@ class UsersView(Resource):
         return res, 200
 
 
-    def post(self):
-        obj = db.session.add(request.json)
+    def post(self, data):
+        def create1(self, data):
+            obj = User(**data)
+            self.session.add(obj)
+            self.session.commit()
+
+
+        '''def create2(self, data):
+            return self.create1(data)
+'''
+        obj = create1(request.json)
         return UserSchema().dump(obj), 201, {'location': f'/users/{obj.id}'}
+
+
+
 
 
 @user_ns.route('/<int:pk>')
@@ -29,7 +41,7 @@ class UserView(Resource):
         sm_d = UserSchema().dump(r)
         return sm_d, 200
 
-    #@auth_required
+    @auth_required
     def put(self, pk):
         user = db.session.query(User).get(pk)
         req_json = request.json
@@ -40,7 +52,7 @@ class UserView(Resource):
         db.session.commit()
         return "", 204
 
-    #@auth_required
+    @auth_required
     def delete(self, pk):
         user = db.session.query(User).get(pk)
         db.session.delete(user)
