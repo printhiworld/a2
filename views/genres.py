@@ -16,10 +16,14 @@ class GenresView(Resource):
         return res, 200
 
     @admin_required
+    def post(self, data):
+        def create1(self, data):
+            obj = Genre(**data)
+            self.session.add(obj)
+            self.session.commit()
 
-    def post(self):
-        obj = db.session.add(request.json)
-        return GenreSchema().dump(obj), 201, {'location': f'/genres/{obj.id}'}
+        obj = create1(request.json)
+        return GenreSchema().dump(obj), 201, {'location': f'/users/{obj.id}'}
 
 @genre_ns.route('/<int:rid>')
 class GenreView(Resource):

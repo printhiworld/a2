@@ -23,9 +23,7 @@ class UsersView(Resource):
             self.session.commit()
 
 
-        '''def create2(self, data):
-            return self.create1(data)
-'''
+
         obj = create1(request.json)
         return UserSchema().dump(obj), 201, {'location': f'/users/{obj.id}'}
 

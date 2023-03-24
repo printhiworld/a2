@@ -26,14 +26,14 @@ class MoviesView(Resource):
         return res, 200
 
     @admin_required
+    def post(self, data):
+        def create1(self, data):
+            obj = Movie(**data)
+            self.session.add(obj)
+            self.session.commit()
 
-    def post(self):
-        req_json = request.json
-        ent = Movie(**req_json)
-
-        db.session.add(ent)
-        db.session.commit()
-        return "", 201, {"location": f"/movies/{ent.id}"}
+        obj = create1(request.json)
+        return MovieSchema().dump(obj), 201, {'location': f'/users/{obj.id}'}
 
 
 @movie_ns.route('/<int:bid>')

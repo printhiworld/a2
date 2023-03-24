@@ -16,11 +16,14 @@ class DirectorsView(Resource):
             return res, 200
 
     @admin_required
+    def post(self, data):
+        def create1(self, data):
+            obj = Director(**data)
+            self.session.add(obj)
+            self.session.commit()
 
-    def post(self):
-        obj = db.session.add(request.json)
-        return DirectorSchema().dump(obj), 201, {'location': f'/directors/{obj.id}'}
-
+        obj = create1(request.json)
+        return DirectorSchema().dump(obj), 201, {'location': f'/users/{obj.id}'}
 
 @director_ns.route('/<int:rid>')
 class DirectorView(Resource):
